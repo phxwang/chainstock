@@ -1,4 +1,4 @@
-# chainstock
+# ChainStock - 基于Ethereum和IPFS的去中心化版权交易平台
 
 ## 基础技术
 * IPFS：存储图片
@@ -27,7 +27,7 @@
 
 ## 模块设计
 * 参考ENS的思路，把注册和版权合约分为两个模块
-### CopyRightRegister 
+### CRCRegister 
 * register(fileHash, previewFileHash, authorName, price) return fileContract
 * list(from, length) return list[(contractAddress, previewFileHash)]
 * listByAuthor(from, length) return list[(contractAddress, previewFileHash)]
