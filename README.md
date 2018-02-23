@@ -37,3 +37,7 @@
 * buy(buyerName) return fileHash
 * verifyBuyerName(buyerName)
 * verifyBuyerAddress(buyerAddress)
+
+## 主合约访问地址
+0x172d497058aff24628c965336b149c64455055dd
+访问方法参考 [demo](https://github.com/phxwang/chainstock/blob/master/source/demo.html)
