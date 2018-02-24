@@ -1,5 +1,9 @@
 # ChainStock - 基于Ethereum和IPFS的去中心化版权交易平台
 
+## 测试地址
+- rinkeby: 0x172d497058aff24628c965336b149c64455055dd
+- 访问方法参考 [demo](https://github.com/phxwang/chainstock/blob/master/source/demo.html)
+
 ## 基础技术
 * IPFS：存储图片
   * 用infura做网关：https://infura.io/
@@ -37,7 +41,3 @@
 * buy(buyerName) return fileHash
 * verifyBuyerName(buyerName)
 * verifyBuyerAddress(buyerAddress)
-
-## 主合约访问地址
-0x172d497058aff24628c965336b149c64455055dd
-访问方法参考 [demo](https://github.com/phxwang/chainstock/blob/master/source/demo.html)
