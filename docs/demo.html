@@ -346,7 +346,7 @@
     })
 
   var web3js;
-  if(web3 != undefined) {
+  if(typeof web3 != 'undefined') {
     web3js = new Web3(web3.currentProvider);
     crc = web3js.eth.contract(abi).at("0x172d497058aff24628c965336b149c64455055dd");
     crc.list(0,10, function(err,result){
@@ -355,7 +355,7 @@
     });
   }
   else {
-    document.getElementById('list1').innerHTML="请使用chrome浏览器并安装metamask，<a href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn' target='_blank'>点击安装</a>";
+    document.getElementById('list1').innerHTML="未检测到Ethereum钱包，请使用chrome浏览器并安装MetaMask，<a href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn' target='_blank'>点击安装</a>";
   }
   
 </script>
