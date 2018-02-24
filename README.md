@@ -2,12 +2,13 @@
 
 ## 测试地址
 - rinkeby: 0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A
-- 访问方法参考 [demo link](https://phxwang.github.io/chainstock/demo.html)([demo source ](https://github.com/phxwang/chainstock/blob/master/source/demo.html))
+- 访问方法参考 [demo link](https://phxwang.github.io/chainstock/demo.html)([demo source ](https://github.com/phxwang/chainstock/blob/master/docs/demo.html))
 
 ## 基础技术
 * IPFS：存储图片
-  * 用infura做网关：https://ipfs.infura.io/ 
-  * [api docs](https://github.com/ipfs/js-ipfs-api)(TODO: 调用会失败，待解决）
+  * ~~用infura做网关：https://ipfs.infura.io/~~
+  * ~~[api docs](https://github.com/ipfs/js-ipfs-api)(TODO: 调用会失败，待解决）~~
+  * 使用[js-ipfs](https://github.com/ipfs/js-ipfs) （不是太稳定。。。，可能是因为墙的原因）
 * Ethereum：处理交易，保存交易记录，支持简单的查询
   * 通过MetaMask调用网关([api docs](https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md))
 
@@ -46,4 +47,8 @@
 - 2018-2-24 完成alpha0
 
 ## TODO
-- alpha1: 做一个好看的界面，解决外部网关的问题
+### alpha1
+- 做一个好看的界面;解决ipfs的稳定性问题
+### future
+- 优化接口设计，减少tansaction的连续调用次数（一次要1分钟，太慢了）
+- 发一个自有token，支持支付
