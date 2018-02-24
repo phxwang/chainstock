@@ -2,7 +2,7 @@
 
 ## 测试地址
 - rinkeby: 0x172d497058aff24628c965336b149c64455055dd
-- 访问方法参考 [demo](https://github.com/phxwang/chainstock/blob/master/source/demo.html)
+- 访问方法参考 [demo link](https://phxwang.github.io/chainstock/demo.html)([demo source ](https://github.com/phxwang/chainstock/blob/master/source/demo.html))
 
 ## 基础技术
 * IPFS：存储图片
