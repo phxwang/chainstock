@@ -43,7 +43,7 @@
 * verifyBuyerAddress(buyerAddress)
 
 ## ChangeLog
-- 2018-2-24 完成alpha1
+- 2018-2-24 完成alpha0
 
 ## TODO
-- 
+- alpha1: 做一个好看的界面，解决外部网关的问题
