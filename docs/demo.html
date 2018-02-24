@@ -1,4 +1,7 @@
 <html>
+<head>
+  <title>ChainStock Demo</title>
+</head>
 <script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"
 integrity="sha384-5bXRcW9kyxxnSMbOoHzraqa7Z0PQWIao+cgeg327zit1hz5LZCEbIMx/LWKPReuB"
 crossorigin="anonymous"></script>
@@ -6,7 +9,9 @@ crossorigin="anonymous"></script>
 <script>
 //var ipfs = window.IpfsApi("ipfs.infura.io", "5001", {protocol: 'https'})
 
-var ipfs = window.IpfsApi();
+//var ipfs = window.IpfsApi();
+
+var ipfs = window.IpfsApi("10.2.19.160", "5001");
 
 
 //ipfs.files.cat("QmQKznbo2EjpAqumR8QN8mbbuaHXuckWxu4VFoHWScaoXm", function(err, result){
@@ -18,7 +23,8 @@ var ipfs = window.IpfsApi();
 //});
 
 </script>
-
+<h1>ChainStock Demo</h1>
+<h2>请上传图片文件到ChainStock</h2>
 <input type="file" id="files" name="files[]" multiple /><br>
 <output id="list"></output><br>
 <output id="list1">现有文件的合约列表（前10条）<br></output>
@@ -328,9 +334,19 @@ var ipfs = window.IpfsApi();
     }
   ];
 
-  web3js = new Web3(web3.currentProvider);
-  crc = web3js.eth.contract(abi).at("0x172d497058aff24628c965336b149c64455055dd");
-  crc.list(0,10, function(err,result){console.log(result);document.getElementById('list1').append(result)});
+  var web3js;
+  if(web3 != undefined) {
+    web3js = new Web3(web3.currentProvider);
+    crc = web3js.eth.contract(abi).at("0x172d497058aff24628c965336b149c64455055dd");
+    crc.list(0,10, function(err,result){
+      console.log(result);
+      document.getElementById('list1').innerHTML = document.getElementById('list1').innerHTML + result.join("<br>")
+    });
+  }
+  else {
+    document.getElementById('list1').innerHTML="请使用chrome浏览器并安装metamask，<a href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn' target='_blank'>点击安装</a>";
+  }
+  
 </script>
 
 </html>
