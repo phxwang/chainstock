@@ -696,31 +696,39 @@
   var web3js;
   if(typeof web3 != 'undefined') {
     web3js = new Web3(web3.currentProvider);
-    register = web3js.eth.contract(registerAbi).at("0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A");
-    register.list(0,10, true, function(err,result){
-      if(err)console.log(err);
-      console.log(result);
-      var lines = [];
 
-      //获得每个文件的预览图地址
-      for(i=0;i<result.length; i++){
-        r = result[i];
-        crc = web3js.eth.contract(crcAbi).at(r);
-        crc.previewFileHash((function(contractAddress){
-          return function(err,result) {
-            if(err)console.log(err);
-              console.log(result);
-            console.log(contractAddress);
-            
-            document.getElementById(contractAddress).innerHTML =  document.getElementById(contractAddress).innerHTML + ["<img width=100 src='",ipfsHost,result,"'></img><a href='javascript:buyFile(\"",contractAddress,"\")'>点击购买</a>"].join("");
-            //console.log(document.getElementById(contractAddress).innerHTML);
-          }
-        })(r));
-      
-        lines.push(["<span id='",r,"'>",r,"</span>"].join(''));
+    web3.version.getNetwork((err, netId) => {
+      if(netId != 4) {
+        document.getElementById('list1').innerHTML="请到MetaMask切换到Rinkeby测试网络";
       }
-      document.getElementById('list1').innerHTML = document.getElementById('list1').innerHTML + lines.join("<br>")
-    });
+      else {
+        register = web3js.eth.contract(registerAbi).at("0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A");
+        register.list(0,10, true, function(err,result){
+          if(err)console.log(err);
+          console.log(result);
+          var lines = [];
+
+          //获得每个文件的预览图地址
+          for(i=0;i<result.length; i++){
+            r = result[i];
+            crc = web3js.eth.contract(crcAbi).at(r);
+            crc.previewFileHash((function(contractAddress){
+              return function(err,result) {
+                if(err)console.log(err);
+                  console.log(result);
+                console.log(contractAddress);
+                
+                document.getElementById(contractAddress).innerHTML =  document.getElementById(contractAddress).innerHTML + ["<img width=100 src='",ipfsHost,result,"'></img><a href='javascript:buyFile(\"",contractAddress,"\")'>点击购买</a>"].join("");
+                //console.log(document.getElementById(contractAddress).innerHTML);
+              }
+            })(r));
+          
+            lines.push(["<span id='",r,"'>",r,"</span>"].join(''));
+          }
+          document.getElementById('list1').innerHTML = document.getElementById('list1').innerHTML + lines.join("<br>")
+        });
+      }   
+    });  
   }
   else {
     document.getElementById('list1').innerHTML="未检测到Ethereum钱包，请使用chrome浏览器并安装MetaMask，<a href='https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn' target='_blank'>点击安装</a>";
