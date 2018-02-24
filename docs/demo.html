@@ -26,7 +26,7 @@
 <h2>请上传图片文件到ChainStock</h2>
 <input type="file" id="files" name="files[]" multiple /><br>
 <output id="list"></output><br>
-<output id="list1">现有文件的合约列表（前10条）<br></output>
+<output id="list1">现有文件的合约列表（前10条）<a href="https://rinkeby.etherscan.io/address/0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A" target="_blank">查看全部文件日志</a><br></output>
 
 <script>
   var files;
@@ -54,25 +54,43 @@
 
   function uploadFile(fileData){
   	ipfs.files.add(ipfs.types.Buffer.from(fileData), function(err,result){
-		console.log(JSON.stringify(result));
-		crc.register(result[0].path, "testAuthor", 0.01e18, function(err,r){
-			console.log(r);
-			var span = document.createElement('span');
-        	span.innerHTML = ["path: " + result[0].path,"contractAddress: " + r].join(",");
-        	document.getElementById('list').insertBefore(span, null);
-		})
-	});
+  		console.log(JSON.stringify(result));
+      var fileHash = result[0].path;
+  		register.register(fileHash, "testAuthor", 0.01e18, function(err,r){
+  			console.log(r);
+  			var span = document.createElement('span');
+        span.innerHTML = ["path: <a target='_blank' href='",ipfsHost, fileHash, "'>",fileHash,"</a>, transaction: <a target='_blank' href='https://rinkeby.etherscan.io/tx/",r,"'>",r,"</a><br>"].join("");
+        document.getElementById('list').insertBefore(span, null);
+        var event = register.Register({fromBlock: "latest", toBlock: "pending" }).watch(function(err, result){
+          if(err)console.log(err);
+          console.log(result);
+          contractAddress = result.args.crContract;
+          register.updateContractInfo(contractAddress,"test title", "test description", "keywords1, keywords2", fileHash, function(err, result) {
+              console.log(result);
+          })
+          event.stopWatching();
+        });
+  		})
+  	});
   }
 
-  function regiesterFile(filePath) {
-  	var result
-	
-	return result;
+  function buyFile(contractAddress) {
+    crc = web3js.eth.contract(crcAbi).at(contractAddress);
+    crc.buy("testbuyer", {value:1e16}, function(err,r){
+      console.log(r);
+      document.getElementById(contractAddress).innerHTML =  document.getElementById(contractAddress).innerHTML +
+      [" <a target='_blank' href='https://rinkeby.etherscan.io/tx/",r,"'>transaction</a>"].join("");
+      crc.Buy({fromBlock: "latest", toBlock: "pending" }).watch(function(err, r){
+        console.log(r);
+        document.getElementById(contractAddress).innerHTML =  document.getElementById(contractAddress).innerHTML +
+        [" <a target='_blank' href='",ipfsHost,r.args.fileHash,"'>点击下载</a>"].join('');
+      })
+    })
   }
 
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
-  var abi = [
+  var registerAbi = [
     {
       "constant": true,
       "inputs": [
@@ -143,7 +161,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "name": "author",
           "type": "address"
         },
@@ -158,7 +176,7 @@
           "type": "uint256"
         },
         {
-          "indexed": false,
+          "indexed": true,
           "name": "crContract",
           "type": "address"
         }
@@ -187,7 +205,7 @@
       "anonymous": false,
       "inputs": [
         {
-          "indexed": false,
+          "indexed": true,
           "name": "crContract",
           "type": "address"
         },
@@ -291,6 +309,10 @@
         {
           "name": "length",
           "type": "uint256"
+        },
+        {
+          "name": "reverse",
+          "type": "bool"
         }
       ],
       "name": "list",
@@ -333,25 +355,371 @@
     }
   ];
 
-  const ipfs = new Ipfs({ repo: 'ipfs-' + Math.random() })
+  crcAbi = [
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "getFile",
+      "outputs": [
+        {
+          "name": "_fileHash",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "buyerName",
+          "type": "string"
+        }
+      ],
+      "name": "buy",
+      "outputs": [
+        {
+          "name": "_fileHash",
+          "type": "string"
+        }
+      ],
+      "payable": true,
+      "stateMutability": "payable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "title",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_buyerAddress",
+          "type": "address"
+        }
+      ],
+      "name": "verifyBuyerAddress",
+      "outputs": [
+        {
+          "name": "verified",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "authorName",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "description",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "keywords",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "price",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_authorAddress",
+          "type": "address"
+        }
+      ],
+      "name": "setAuthor",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "author",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "previewFileHash",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_buyerName",
+          "type": "string"
+        }
+      ],
+      "name": "verifyBuyerName",
+      "outputs": [
+        {
+          "name": "verified",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_title",
+          "type": "string"
+        },
+        {
+          "name": "_description",
+          "type": "string"
+        },
+        {
+          "name": "_keywords",
+          "type": "string"
+        },
+        {
+          "name": "_previewFileHash",
+          "type": "string"
+        }
+      ],
+      "name": "setMetaInfo",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "name": "_fileHash",
+          "type": "string"
+        },
+        {
+          "name": "_authorAddress",
+          "type": "address"
+        },
+        {
+          "name": "_authorName",
+          "type": "string"
+        },
+        {
+          "name": "_price",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "buyerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "buyerName",
+          "type": "string"
+        },
+        {
+          "indexed": false,
+          "name": "price",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "name": "fileHash",
+          "type": "string"
+        }
+      ],
+      "name": "Buy",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "amount",
+          "type": "uint256"
+        }
+      ],
+      "name": "Transfer",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "buyerAddress",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "fileHash",
+          "type": "string"
+        }
+      ],
+      "name": "GetFile",
+      "type": "event"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ];
+
+  const ipfs = new Ipfs({ repo: 'ipfs-' + Math.random() });
+  const ipfsHost = "http://10.2.19.160:8080/ipfs/";
 
     ipfs.once('ready', () => {
       console.log('Online status: ', ipfs.isOnline() ? 'online' : 'offline')
 
       document.getElementById("status").innerHTML= 'IPFS Node status: ' + (ipfs.isOnline() ? 'online' : 'offline')
 
-      // You can write more code here to use it. Use methods like 
-      // node.files.add, node.files.get. See the API docs here:
-      // https://github.com/ipfs/interface-ipfs-core
+      ipfs.swarm.connect("/ip4/10.2.194.207/tcp/4003/ws/ipfs/QmeSSNadH4Cgua95AYTFtxB3FBYrk9UGfA3fAJTmTjEQFz", function(err){console.log(err)})
+
+      ipfs.swarm.connect("/ip4/10.2.19.160/tcp/4003/ws/ipfs/QmWH6qn9ET6wBMpsGBsvdfrBFq1niA8JLEYVpNNtGBPUfo", function(err){console.log(err)})
+
     })
 
   var web3js;
   if(typeof web3 != 'undefined') {
     web3js = new Web3(web3.currentProvider);
-    crc = web3js.eth.contract(abi).at("0x172d497058aff24628c965336b149c64455055dd");
-    crc.list(0,10, function(err,result){
+    register = web3js.eth.contract(registerAbi).at("0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A");
+    register.list(0,10, true, function(err,result){
+      if(err)console.log(err);
       console.log(result);
-      document.getElementById('list1').innerHTML = document.getElementById('list1').innerHTML + result.join("<br>")
+      var lines = [];
+
+      //获得每个文件的预览图地址
+      for(i=0;i<result.length; i++){
+        r = result[i];
+        crc = web3js.eth.contract(crcAbi).at(r);
+        crc.previewFileHash((function(contractAddress){
+          return function(err,result) {
+            if(err)console.log(err);
+              console.log(result);
+            console.log(contractAddress);
+            
+            document.getElementById(contractAddress).innerHTML =  document.getElementById(contractAddress).innerHTML + ["<img width=100 src='",ipfsHost,result,"'></img><a href='javascript:buyFile(\"",contractAddress,"\")'>点击购买</a>"].join("");
+            //console.log(document.getElementById(contractAddress).innerHTML);
+          }
+        })(r));
+      
+        lines.push(["<span id='",r,"'>",r,"</span>"].join(''));
+      }
+      document.getElementById('list1').innerHTML = document.getElementById('list1').innerHTML + lines.join("<br>")
     });
   }
   else {

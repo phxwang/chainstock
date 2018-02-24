@@ -15,7 +15,7 @@ contract("CRCRegister", function(accounts){
 				
 		});	
 
-		instance.list(0,10).then(function(result){
+		instance.list(0,10,true).then(function(result){
 			console.log(result);
 		});
 

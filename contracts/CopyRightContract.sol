@@ -30,7 +30,7 @@ contract CopyRightContract is owned {
     mapping (address => uint256) private buyerAddresses;
     mapping (string => bool) private buyerNames;
 
-    event Buy(address indexed buyerAddress, string  buyerName, uint256 price);
+    event Buy(address indexed buyerAddress, string  buyerName, uint256 price, string fileHash);
     event Transfer(address indexed to, uint256 amount);
     event GetFile(address indexed buyerAddress, string fileHash);
     
@@ -67,7 +67,7 @@ contract CopyRightContract is owned {
         require(msg.value >= price);
         buyerAddresses[msg.sender] = msg.value;
         buyerNames[buyerName] = true;
-        Buy(msg.sender, buyerName, msg.value);
+        Buy(msg.sender, buyerName, msg.value, fileHash);
         
         //9:1分成，作者拿9
         uint256 authorIncome = uint256(msg.value*9/10);
@@ -81,7 +81,7 @@ contract CopyRightContract is owned {
         owner.transfer(ownerIncome);
         Transfer(owner, ownerIncome);
 
-        return _fileHash;
+        return fileHash;
     }
     
     function getFile() public returns(string _fileHash) {

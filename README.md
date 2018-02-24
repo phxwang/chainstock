@@ -1,7 +1,7 @@
 # ChainStock - 基于Ethereum和IPFS的去中心化版权交易平台
 
 ## 测试地址
-- rinkeby: 0x172d497058aff24628c965336b149c64455055dd
+- rinkeby: 0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A
 - 访问方法参考 [demo link](https://phxwang.github.io/chainstock/demo.html)([demo source ](https://github.com/phxwang/chainstock/blob/master/source/demo.html))
 
 ## 基础技术
