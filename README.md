@@ -6,8 +6,9 @@
 
 ## 基础技术
 * IPFS：存储图片
-  * 用infura做网关：https://ipfs.infura.io/ 
-  * [api docs](https://github.com/ipfs/js-ipfs-api)(TODO: 调用会失败，待解决）
+  * ~~用infura做网关：https://ipfs.infura.io/~~
+  * ~~[api docs](https://github.com/ipfs/js-ipfs-api)(TODO: 调用会失败，待解决）~~
+  * 使用[js-ipfs](https://github.com/ipfs/js-ipfs) （不是太稳定。。。，可能是因为墙的原因）
 * Ethereum：处理交易，保存交易记录，支持简单的查询
   * 通过MetaMask调用网关([api docs](https://github.com/MetaMask/faq/blob/master/DEVELOPERS.md))
 
