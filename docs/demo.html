@@ -682,7 +682,7 @@
   const ipfs = new Ipfs({ repo: 'ipfs-' + Math.random() });
   var ipfsHost = "";
   if(window.location.href.indexOf("ipfs") < 0) {
-    const ipfsHost = "https://www.eternum.io/ipfs/";
+    ipfsHost = "https://www.eternum.io/ipfs/";
   }
   
     ipfs.once('ready', () => {
