@@ -43,7 +43,7 @@
 ## 模块设计
 * 参考ENS的思路，把注册和版权合约分为两个模块
 ### CRCRegister 
-* register(fileHash, previewFileHash, authorName, price) return fileContract
+* register(fileHash, authorName, price) return fileContract
 * list(from, length) return list[(contractAddress, previewFileHash)]
 * listByAuthor(from, length) return list[(contractAddress, previewFileHash)]
 
@@ -60,5 +60,5 @@
 ### alpha1
 - 做一个好看的界面;解决ipfs的稳定性问题
 ### future
-- 优化接口设计，减少tansaction的连续调用次数（一次要1分钟，太慢了）
+- 优化接口设计，减少transaction的连续调用次数（一次要1分钟，太慢了）
 - 发一个自有token，支持支付
