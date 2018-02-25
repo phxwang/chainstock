@@ -680,8 +680,11 @@
   ];
 
   const ipfs = new Ipfs({ repo: 'ipfs-' + Math.random() });
-  const ipfsHost = "http://10.2.19.160:8080/ipfs/";
-
+  var ipfsHost = "";
+  if(window.location.href.indexOf("ipfs") < 0) {
+    const ipfsHost = "https://www.eternum.io/ipfs/";
+  }
+  
     ipfs.once('ready', () => {
       console.log('Online status: ', ipfs.isOnline() ? 'online' : 'offline')
 
