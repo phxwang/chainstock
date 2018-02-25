@@ -3,7 +3,7 @@
 ## 测试地址
 - rinkeby: 0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A
 - 访问方法参考 [demo link](https://phxwang.github.io/chainstock/demo.html)([demo source ](https://github.com/phxwang/chainstock/blob/master/docs/demo.html))
-- 多IPFS网关访问：[ipfs.io](https://ipfs.io/ipfs/QmajKNF3bmTMhgjNhy8kZsuFRfZT5YFigZQMCpgju5pMZ5), [ipfs.infura.io](https://ipfs.infura.io/ipfs/QmajKNF3bmTMhgjNhy8kZsuFRfZT5YFigZQMCpgju5pMZ5), [eternum.io](https://www.eternum.io/ipfs/QmajKNF3bmTMhgjNhy8kZsuFRfZT5YFigZQMCpgju5pMZ5)
+- 多IPFS网关访问：[ipfs.io](https://ipfs.io/ipfs/QmWiDeZg3d8FhxC4khd8xnc8s6Rrch4obqrVjcmn5n3n81), [ipfs.infura.io](https://ipfs.infura.io/ipfs/QmWiDeZg3d8FhxC4khd8xnc8s6Rrch4obqrVjcmn5n3n81), [eternum.io](https://www.eternum.io/ipfs/QmWiDeZg3d8FhxC4khd8xnc8s6Rrch4obqrVjcmn5n3n81)
 
 ## 基础技术
 * IPFS：存储图片
