@@ -65,7 +65,7 @@
       },
       {
         "attributes": {
-          "SourceUnit": 1713,
+          "SourceUnit": 1744,
           "absolutePath": "/Users/phx/eth/chainstock/contracts/owned.sol",
           "file": "./owned.sol",
           "scope": 1173,
@@ -993,7 +993,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1724,
+                                      "referencedDeclaration": 1755,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -1289,7 +1289,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -1386,7 +1386,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -1509,7 +1509,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -2095,7 +2095,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1715,
+                              "referencedDeclaration": 1746,
                               "type": "function (bool) pure",
                               "value": "assert"
                             },
@@ -2413,7 +2413,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1724,
+                                  "referencedDeclaration": 1755,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -2638,7 +2638,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -2746,7 +2746,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1724,
+                                          "referencedDeclaration": 1755,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -2863,7 +2863,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1724,
+                                      "referencedDeclaration": 1755,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -3213,7 +3213,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1724,
+                                          "referencedDeclaration": 1755,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -3701,7 +3701,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1724,
+                                          "referencedDeclaration": 1755,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -3734,7 +3734,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1739,
+                                      "referencedDeclaration": 1770,
                                       "type": "contract TokenERC20",
                                       "value": "this"
                                     },
@@ -3925,7 +3925,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -3990,7 +3990,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1724,
+                                          "referencedDeclaration": 1755,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -4092,7 +4092,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1724,
+                                      "referencedDeclaration": 1755,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -4243,7 +4243,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1724,
+                                  "referencedDeclaration": 1755,
                                   "type": "msg",
                                   "value": "msg"
                                 },
@@ -4455,7 +4455,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -4578,7 +4578,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -4686,7 +4686,7 @@
                                           "overloadedDeclarations": [
                                             null
                                           ],
-                                          "referencedDeclaration": 1724,
+                                          "referencedDeclaration": 1755,
                                           "type": "msg",
                                           "value": "msg"
                                         },
@@ -4883,7 +4883,7 @@
                                       "overloadedDeclarations": [
                                         null
                                       ],
-                                      "referencedDeclaration": 1724,
+                                      "referencedDeclaration": 1755,
                                       "type": "msg",
                                       "value": "msg"
                                     },
@@ -5100,7 +5100,7 @@
         "attributes": {
           "contractDependencies": [
             1053,
-            1712
+            1743
           ],
           "contractKind": "contract",
           "documentation": "***************************************",
@@ -5108,7 +5108,7 @@
           "linearizedBaseContracts": [
             1172,
             1053,
-            1712
+            1743
           ],
           "name": "ChainStockToken",
           "scope": 1173
@@ -5125,7 +5125,7 @@
                 "attributes": {
                   "contractScope": null,
                   "name": "owned",
-                  "referencedDeclaration": 1712,
+                  "referencedDeclaration": 1743,
                   "type": "contract owned"
                 },
                 "id": 1054,
@@ -5659,7 +5659,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -5765,7 +5765,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1727,
+                              "referencedDeclaration": 1758,
                               "type": "function (bool) pure",
                               "value": "require"
                             },
@@ -5891,7 +5891,7 @@
                                   "overloadedDeclarations": [
                                     null
                                   ],
-                                  "referencedDeclaration": 1742,
+                                  "referencedDeclaration": 1773,
                                   "type": "contract super ChainStockToken",
                                   "value": "super"
                                 },
@@ -6062,7 +6062,7 @@
                       "overloadedDeclarations": [
                         null
                       ],
-                      "referencedDeclaration": 1699,
+                      "referencedDeclaration": 1730,
                       "type": "modifier ()",
                       "value": "onlyOwner"
                     },
@@ -6275,7 +6275,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1741,
+                              "referencedDeclaration": 1772,
                               "type": "contract ChainStockToken",
                               "value": "this"
                             },
@@ -6357,7 +6357,7 @@
                               "overloadedDeclarations": [
                                 null
                               ],
-                              "referencedDeclaration": 1741,
+                              "referencedDeclaration": 1772,
                               "type": "contract ChainStockToken",
                               "value": "this"
                             },
@@ -6509,7 +6509,7 @@
                       "overloadedDeclarations": [
                         null
                       ],
-                      "referencedDeclaration": 1699,
+                      "referencedDeclaration": 1730,
                       "type": "modifier ()",
                       "value": "onlyOwner"
                     },
@@ -6708,5 +6708,5 @@
   },
   "networks": {},
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-02-27T12:50:31.661Z"
+  "updatedAt": "2018-02-27T14:58:32.434Z"
 }

@@ -9,7 +9,7 @@ contract CopyRightContract is owned, tokenRecipient {
     address public author;
     string fileHash;
     string public previewFileHash;
-    uint256 public price;
+    uint256 public price; //以ETH Wei定价
     string public title;
     string public description;
     string public keywords;
@@ -18,7 +18,7 @@ contract CopyRightContract is owned, tokenRecipient {
     mapping (string => bool) private buyerNames;
 
     event Buy(address indexed buyerAddress, string  buyerName, uint256 price, string fileHash);
-    event BuyWithToken(address indexed buyerAddress, string  buyerName, uint256 price, string fileHash);
+    event BuyWithToken(address indexed buyerAddress, string  buyerName, uint256 tokenAmount, uint256 tokenPrice, uint256 ethAmount, uint256 price, uint discountPrice, string fileHash);
     event Transfer(address indexed buyerAddress, address indexed to, uint256 amount);
     event TransferToken(address indexed buyerAddress, address indexed to, uint256 amount);
     event GetFile(address indexed buyerAddress, string fileHash);
@@ -79,15 +79,20 @@ contract CopyRightContract is owned, tokenRecipient {
         address tokenAddress = register.tokenAddress();
         assert(tokenAddress == _token);
 
-        //查询token汇率
         ChainStockToken cst = ChainStockToken(tokenAddress);
-        uint256 ethValue = uint256(_value * cst.sellPrice());
+        
+        //查询token汇率
+        uint256 tokenPrice = register.getPrice();
+        uint256 ethValue = uint256(_value * tokenPrice/10**18);
+        uint256 discountPrice = price*9/10;
         //用token买打九折
-        assert(ethValue >= uint256(price*9/10));
+        assert(ethValue >= discountPrice);
 
         //9:1分成，作者拿9
         uint256 authorIncome = uint256(_value*9/10);
         uint256 ownerIncome = _value - authorIncome;
+
+        assert(cst.balanceOf(_from) >= _value);
         
         //转账给作者
         cst.transferFrom(_from, author, authorIncome);
@@ -100,7 +105,7 @@ contract CopyRightContract is owned, tokenRecipient {
         buyerAddresses[_from] = ethValue;
         string memory buyerName = string(_extraData);
         buyerNames[buyerName] = true;
-        BuyWithToken(_from,buyerName, _value, fileHash);
+        BuyWithToken(_from, buyerName, _value, tokenPrice, ethValue, price, discountPrice, fileHash);
     }
     
     function getFile() public returns(string _fileHash) {

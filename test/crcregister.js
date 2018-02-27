@@ -75,17 +75,36 @@ contract("CRCRegister", function(accounts){
 								//checkAllBalances(cst, instance);
 
 								instance.Sell({fromBlock:0}).get(function(err, result){
-										//console.log(JSON.stringify(result[0].args));
+									//console.log(JSON.stringify(result[0].args));
 								});
 
 								instance.GetPrice({fromBlock:0}).get(function(err, result){
-										console.log(JSON.stringify(result[0].args));
+									console.log(JSON.stringify(result[0].args));
 								});
-								cst.approveAndCall(instance.address, 1.2525e19, [], {from:web3.eth.accounts[6]}).then(function(result){
+								cst.approveAndCall(instance.address, 0.2525e19, [], {from:web3.eth.accounts[6]}).then(function(result){
 									//console.log(JSON.stringify(result.logs[0]));
 									//console.log(JSON.stringify(result.logs[1]));
 									console.log("sell token to register: ");
 									checkAllBalances(cst, instance);
+									instance.GetPrice({fromBlock:0}).get(function(err, result){
+										console.log(JSON.stringify(result[0].args));
+									});
+
+									crc.BuyWithToken({fromBlock:0}).get(function(err, result){
+										console.log(JSON.stringify(result[0].args));
+									});
+
+									crc.TransferToken({fromBlock:0}).get(function(err, result){
+										console.log(JSON.stringify(result[0].args));
+										console.log(JSON.stringify(result[1].args));
+									});
+
+									cst.approveAndCall(crc.address, 1e19, ['a','b','c'], {from:web3.eth.accounts[6]}).then(function(result){
+											//console.log(JSON.stringify(result.logs[0]));
+											//console.log(JSON.stringify(result.logs[1]));
+											console.log("buy one file with token: ");
+											checkAllBalances(cst, instance);
+									});
 								});
 							});
 

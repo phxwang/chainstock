@@ -16,7 +16,7 @@ contract CRCTokenReserve is owned{
     event GetPrice(uint256 total, uint256 reservedToken, uint256 reservedEth, uint256 marketToken, uint256 price);
 
     //返回的price是每CST的Wei价格
-    function getPrice() internal returns(uint256 price) {
+    function getPrice() public returns(uint256 price) {
         ChainStockToken cst = ChainStockToken(tokenAddress);
         uint256 totalSupply = cst.totalSupply();
         uint256 tokenBalance = cst.balanceOf(this);
