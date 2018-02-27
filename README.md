@@ -1,7 +1,8 @@
 # ChainStock - 基于Ethereum和IPFS的去中心化版权交易平台
 
 ## 测试地址
-- rinkeby: 0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A
+- CRCRegister服务（rinkeby）: 0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A
+- ChainStockToken （rinkeby）: 0x2e98baf2024b74226759ebad25ff0a4681ea251d
 - 访问方法参考 [demo link](https://phxwang.github.io/chainstock/demo.html)([demo source ](https://github.com/phxwang/chainstock/blob/master/docs/demo.html))
 - 多IPFS网关访问：[ipfs.io](https://ipfs.io/ipfs/QmWiDeZg3d8FhxC4khd8xnc8s6Rrch4obqrVjcmn5n3n81), [ipfs.infura.io](https://ipfs.infura.io/ipfs/QmWiDeZg3d8FhxC4khd8xnc8s6Rrch4obqrVjcmn5n3n81), [eternum.io](https://www.eternum.io/ipfs/QmWiDeZg3d8FhxC4khd8xnc8s6Rrch4obqrVjcmn5n3n81)
 

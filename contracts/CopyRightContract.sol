@@ -1,23 +1,10 @@
 pragma solidity ^0.4.18;
 
-contract owned {
-    address public owner;
+import "./owned.sol";
+import "./CRCRegister.sol";
+import "./ChainStockToken.sol";
 
-    function owned() public {
-        owner = msg.sender;
-    }
-
-    modifier onlyOwner {
-        require(msg.sender == owner);
-        _;
-    }
-
-    function transferOwnership(address newOwner) onlyOwner public {
-        owner = newOwner;
-    }
-}
-
-contract CopyRightContract is owned {
+contract CopyRightContract is owned, tokenRecipient {
     string public authorName;
     address public author;
     string fileHash;
@@ -31,9 +18,11 @@ contract CopyRightContract is owned {
     mapping (string => bool) private buyerNames;
 
     event Buy(address indexed buyerAddress, string  buyerName, uint256 price, string fileHash);
-    event Transfer(address indexed to, uint256 amount);
+    event BuyWithToken(address indexed buyerAddress, string  buyerName, uint256 price, string fileHash);
+    event Transfer(address indexed buyerAddress, address indexed to, uint256 amount);
+    event TransferToken(address indexed buyerAddress, address indexed to, uint256 amount);
     event GetFile(address indexed buyerAddress, string fileHash);
-    
+
     function CopyRightContract(
         string _fileHash,
         address _authorAddress,
@@ -75,13 +64,43 @@ contract CopyRightContract is owned {
         
         //转账给作者
         author.transfer(authorIncome);
-        Transfer(author, authorIncome);
+        Transfer(msg.sender, author, authorIncome);
         
         //转账给合约创建者（平台）
         owner.transfer(ownerIncome);
-        Transfer(owner, ownerIncome);
+        Transfer(msg.sender, owner, ownerIncome);
 
         return fileHash;
+    }
+
+    function receiveApproval(address _from, uint256 _value, address _token, bytes _extraData) public {
+        //查找token地址
+        CRCRegister register = CRCRegister(owner);
+        address tokenAddress = register.tokenAddress();
+        assert(tokenAddress == _token);
+
+        //查询token汇率
+        ChainStockToken cst = ChainStockToken(tokenAddress);
+        uint256 ethValue = uint256(_value * cst.sellPrice());
+        //用token买打九折
+        assert(ethValue >= uint256(price*9/10));
+
+        //9:1分成，作者拿9
+        uint256 authorIncome = uint256(_value*9/10);
+        uint256 ownerIncome = _value - authorIncome;
+        
+        //转账给作者
+        cst.transferFrom(_from, author, authorIncome);
+        TransferToken(_from, author, authorIncome);
+        
+        //转账给合约创建者（平台）
+        cst.transferFrom(_from, owner, ownerIncome);
+        TransferToken(_from, owner, ownerIncome);
+
+        buyerAddresses[_from] = ethValue;
+        string memory buyerName = string(_extraData);
+        buyerNames[buyerName] = true;
+        BuyWithToken(_from,buyerName, _value, fileHash);
     }
     
     function getFile() public returns(string _fileHash) {

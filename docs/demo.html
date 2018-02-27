@@ -21,7 +21,7 @@
 //});
 
 </script>
-<h1>ChainStock Demo</h1>
+<h1><a href="https://github.com/phxwang/chainstock">ChainStock Demo</a></h1>
 <h2 id="status">IPFS Node status: offline</h2>
 <h2>请上传图片文件到ChainStock</h2>
 <input type="file" id="files" name="files[]" multiple /><br>
@@ -679,7 +679,7 @@
     }
   ];
 
-  const ipfs = new Ipfs({ repo: 'ipfs-' + Math.random() });
+  const ipfs = new Ipfs({ repo: 'ipfs-chainstock'});
   var ipfsHost = "";
   if(window.location.href.indexOf("ipfs") < 0) {
     ipfsHost = "https://www.eternum.io/ipfs/";
@@ -690,7 +690,7 @@
 
       document.getElementById("status").innerHTML= 'IPFS Node status: ' + (ipfs.isOnline() ? 'online' : 'offline')
 
-      ipfs.swarm.connect("/ip4/10.2.194.207/tcp/4003/ws/ipfs/QmeSSNadH4Cgua95AYTFtxB3FBYrk9UGfA3fAJTmTjEQFz", function(err){console.log(err)})
+      ipfs.swarm.connect("/ip4/127.0.0.1/tcp/4003/ws/ipfs/QmeSSNadH4Cgua95AYTFtxB3FBYrk9UGfA3fAJTmTjEQFz", function(err){console.log(err)})
 
       ipfs.swarm.connect("/ip4/10.2.19.160/tcp/4003/ws/ipfs/QmWH6qn9ET6wBMpsGBsvdfrBFq1niA8JLEYVpNNtGBPUfo", function(err){console.log(err)})
 
