@@ -6,11 +6,8 @@
 <script src="https://cdn.jsdelivr.net/npm/ipfs/dist/index.min.js"></script>  
 <script>
 //var ipfs = window.IpfsApi("ipfs.infura.io", "5001", {protocol: 'https'})
-
 //var ipfs = window.IpfsApi();
-
 //var ipfs = window.IpfsApi("10.2.19.160", "5001");
-
 
 //ipfs.files.cat("QmQKznbo2EjpAqumR8QN8mbbuaHXuckWxu4VFoHWScaoXm", function(err, result){
 //	console.log(result.toString());
@@ -19,14 +16,1390 @@
 //ipfs.files.add(ipfs.Buffer.from("6x7=42"), function(err,result){
 //	console.log(JSON.stringify(result));
 //});
+/*
+TODO：
+1. 用token购买的说明
+*/
+var registerAbi = [
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "author",
+        "type": "address"
+      },
+      {
+        "name": "start",
+        "type": "uint256"
+      },
+      {
+        "name": "length",
+        "type": "uint256"
+      }
+    ],
+    "name": "listByAuthor",
+    "outputs": [
+      {
+        "name": "_fileContracts",
+        "type": "address[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_tokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setTokenAddress",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "contractAuthor",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "crContract",
+        "type": "address"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "name": "keywords",
+        "type": "string"
+      },
+      {
+        "name": "previewFileHash",
+        "type": "string"
+      }
+    ],
+    "name": "updateContractInfo",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "start",
+        "type": "uint256"
+      },
+      {
+        "name": "length",
+        "type": "uint256"
+      },
+      {
+        "name": "reverse",
+        "type": "bool"
+      }
+    ],
+    "name": "list",
+    "outputs": [
+      {
+        "name": "_fileContracts",
+        "type": "address[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "fileContracts",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_from",
+        "type": "address"
+      },
+      {
+        "name": "_amount",
+        "type": "uint256"
+      },
+      {
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "name": "_extraData",
+        "type": "bytes"
+      }
+    ],
+    "name": "receiveApproval",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "getPrice",
+    "outputs": [
+      {
+        "name": "price",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "tokenAddress",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "buy",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "CopyRightContractRegister",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "authorContracts",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "fileHash",
+        "type": "string"
+      },
+      {
+        "name": "authorName",
+        "type": "string"
+      },
+      {
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "name": "keywords",
+        "type": "string"
+      },
+      {
+        "name": "previewFileHash",
+        "type": "string"
+      }
+    ],
+    "name": "register",
+    "outputs": [
+      {
+        "name": "_fileContract",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "fallback"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "author",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "authorName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "crContract",
+        "type": "address"
+      }
+    ],
+    "name": "Register",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Paied",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "crContract",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "keywords",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "previewFileHash",
+        "type": "string"
+      }
+    ],
+    "name": "UpdateContractInfo",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "tokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "SetTokenAddress",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "author",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "tokenAwarded",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "reservedTokenAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "totalSupply",
+        "type": "uint256"
+      }
+    ],
+    "name": "AwardToken",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "buyer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "tokenAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "buyPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "tokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "Buy",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "seller",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "tokenAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "sellPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "tokenAddress",
+        "type": "address"
+      }
+    ],
+    "name": "Sell",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "total",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "reservedToken",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "reservedEth",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "marketToken",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      }
+    ],
+    "name": "GetPrice",
+    "type": "event"
+  }
+];
+
+  crcAbi = [
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "getFile",
+    "outputs": [
+      {
+        "name": "_fileHash",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "buyerName",
+        "type": "string"
+      }
+    ],
+    "name": "buy",
+    "outputs": [
+      {
+        "name": "_fileHash",
+        "type": "string"
+      }
+    ],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "title",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_buyerAddress",
+        "type": "address"
+      }
+    ],
+    "name": "verifyBuyerAddress",
+    "outputs": [
+      {
+        "name": "verified",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "authorName",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "description",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "keywords",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_from",
+        "type": "address"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "name": "_token",
+        "type": "address"
+      },
+      {
+        "name": "_extraData",
+        "type": "bytes"
+      }
+    ],
+    "name": "receiveApproval",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "price",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_authorAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setAuthor",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "author",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "previewFileHash",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_buyerName",
+        "type": "string"
+      }
+    ],
+    "name": "verifyBuyerName",
+    "outputs": [
+      {
+        "name": "verified",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_title",
+        "type": "string"
+      },
+      {
+        "name": "_description",
+        "type": "string"
+      },
+      {
+        "name": "_keywords",
+        "type": "string"
+      },
+      {
+        "name": "_previewFileHash",
+        "type": "string"
+      }
+    ],
+    "name": "setMetaInfo",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_fileHash",
+        "type": "string"
+      },
+      {
+        "name": "_authorAddress",
+        "type": "address"
+      },
+      {
+        "name": "_authorName",
+        "type": "string"
+      },
+      {
+        "name": "_price",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "buyerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "buyerName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "fileHash",
+        "type": "string"
+      }
+    ],
+    "name": "Buy",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "buyerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "buyerName",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "name": "tokenAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "tokenPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "ethAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "price",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "discountPrice",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "fileHash",
+        "type": "string"
+      }
+    ],
+    "name": "BuyWithToken",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "buyerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "buyerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "amount",
+        "type": "uint256"
+      }
+    ],
+    "name": "TransferToken",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "buyerAddress",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "fileHash",
+        "type": "string"
+      }
+    ],
+    "name": "GetFile",
+    "type": "event"
+  }
+];
+
+cstAbi = [
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_spender",
+        "type": "address"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [
+      {
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "totalSupply",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_from",
+        "type": "address"
+      },
+      {
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [
+      {
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "decimals",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint8"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "burn",
+    "outputs": [
+      {
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "sellPrice",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "target",
+        "type": "address"
+      },
+      {
+        "name": "mintedAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "mintToken",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_from",
+        "type": "address"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "burnFrom",
+    "outputs": [
+      {
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "buyPrice",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_to",
+        "type": "address"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      }
+    ],
+    "name": "transfer",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "frozenAccount",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_spender",
+        "type": "address"
+      },
+      {
+        "name": "_value",
+        "type": "uint256"
+      },
+      {
+        "name": "_extraData",
+        "type": "bytes"
+      }
+    ],
+    "name": "approveAndCall",
+    "outputs": [
+      {
+        "name": "success",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      },
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "allowance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "target",
+        "type": "address"
+      },
+      {
+        "name": "freeze",
+        "type": "bool"
+      }
+    ],
+    "name": "freezeAccount",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "initialSupply",
+        "type": "uint256"
+      },
+      {
+        "name": "tokenName",
+        "type": "string"
+      },
+      {
+        "name": "tokenSymbol",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "target",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "frozen",
+        "type": "bool"
+      }
+    ],
+    "name": "FrozenFunds",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "name": "value",
+        "type": "uint256"
+      }
+    ],
+    "name": "Burn",
+    "type": "event"
+  }
+];
 
 </script>
-<h1><a href="https://github.com/phxwang/chainstock">ChainStock Demo</a></h1>
-<h2 id="status">IPFS Node status: offline</h2>
-<h2>请上传图片文件到ChainStock</h2>
+<h1>ChainStock Demo<a target="_blank" href="https://github.com/phxwang/chainstock">[github]</a></h1>
+<h5>ChainStock.org是一个完全去中心化的版权交易网络，版权所有者只要把版权文件（图片，视频，音频，文档）上传到网络中，就能在<a  target="_blank" href="https://ipfs.io/">IPFS</a>永久存储，并在<a target="_blank" href="https://www.ethereum.org">Ethereum</a>的智能合约中公开销售，每上传一个版权文件的同时即可获得一个CST（ChainStockToken）。</h5>
+<h5>版权购买者通过向智能合约支付Ether或CST购买版权文件，购买完成后即可实时获得摄影师的授权。</h5>
+<h5>你现在就可以试试上传图片文件获得CST，或者点击购买别人上传的图片文件。（目前整个智能合约运行在<a target="_blank"  href="https://www.rinkeby.io/">Rinkeby测试网络</a>上，Ether和CST都只作为demo使用，不需要支持任何实际的费用，<a target="_blank"  href="https://www.rinkeby.io/#faucet">点击获取测试用Ether</a>）</h5>
+<h4>当前网络已释放<span id="market_token_count">Nah</span>CST(共<span id="token_supply">Nah</span>CST)，当前单价<span id="price"></span>Ether/CST。你拥有<span id="token_count">Nah</span>CST。<a href="javascript:buyToken(1)">购买1CST</a> <a href="javascript:sellToken(1)">卖出1CST</a></h4>
+<h4>上传文件即可获得1CST</h4>
 <input type="file" id="files" name="files[]" multiple /><br>
 <output id="list"></output><br>
-<output id="list1">现有文件的合约列表（前10条）<a href="https://rinkeby.etherscan.io/address/0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A" target="_blank">查看全部文件日志</a><br></output>
+<output id="list1">现有智能合约中的文件（最新10条）<a href="https://rinkeby.etherscan.io/address/0x00f67417f408c26826ec9b09c4fc70d0faa6ca9d" target="_blank">查看全部智能合约日志</a><br></output>
+<h4 id="status">IPFS Node status: offline</h4>
 
 <script>
   var files;
@@ -56,12 +1429,12 @@
   	ipfs.files.add(ipfs.types.Buffer.from(fileData), function(err,result){
   		console.log(JSON.stringify(result));
       var fileHash = result[0].path;
-  		register.register(fileHash, "testAuthor", 0.01e18, function(err,r){
+  		register.register(fileHash, "testAuthor", 0.01e18,"test title", "test description", "keywords1, keywords2", fileHash, function(err,r){
   			console.log(r);
   			var span = document.createElement('span');
         span.innerHTML = ["path: <a target='_blank' href='",ipfsHost, fileHash, "'>",fileHash,"</a>, transaction: <a target='_blank' href='https://rinkeby.etherscan.io/tx/",r,"'>",r,"</a><br>"].join("");
         document.getElementById('list').insertBefore(span, null);
-        var event = register.Register({fromBlock: "latest", toBlock: "pending" }).watch(function(err, result){
+        /*var event = register.Register({fromBlock: "latest", toBlock: "pending" }).watch(function(err, result){
           if(err)console.log(err);
           console.log(result);
           contractAddress = result.args.crContract;
@@ -69,7 +1442,7 @@
               console.log(result);
           })
           event.stopWatching();
-        });
+        });*/
   		})
   	});
   }
@@ -88,596 +1461,53 @@
     })
   }
 
+  function buyToken(tokenCount) {
+    price = document.getElementById("price").innerHTML;
+    toPayEth = price * tokenCount;
+    console.log("price:" + price + ", to pay: " + toPayEth);
+    register.buy({value:web3js.toWei(toPayEth, "ether")}, function(err, r) {
+      console.log(r)
+      register.Buy({fromBlock: "latest", toBlock: "pending" }).watch(function(err, r){
+        console.log(JSON.stringify(r));
+        updateCSTStatus();
+      });
+    });
+  }
+
+  function sellToken(tokenCount) {
+    console.log("sell" + web3js.toWei(tokenCount, "ether"));
+    cst.approveAndCall(register.address, web3js.toWei(tokenCount, "ether"), [], function(err, r) {
+      console.log(r)
+      register.Sell({fromBlock: "latest", toBlock: "pending" }).watch(function(err, r){
+        console.log(JSON.stringify(r));
+        updateCSTStatus();
+      });
+    });
+  }
+
+  function updateCSTStatus() {
+    cst.totalSupply(function(err, result){
+          document.getElementById("token_supply").innerHTML = web3js.fromWei(result, "ether");
+          var totalSupply = result;
+
+          cst.balanceOf(registerAddress, function(err, result){
+            document.getElementById("market_token_count").innerHTML = web3js.fromWei((totalSupply - result), "ether");
+          });
+        });
+
+        cst.balanceOf(web3js.eth.accounts[0], function(err, result){
+          document.getElementById("token_count").innerHTML = web3js.fromWei(result, "ether");
+        });
+
+        register.getPrice(function(err, result){
+          document.getElementById("price").innerHTML = web3js.fromWei(result, "ether");
+
+        });
+  }
+
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
-  var registerAbi = [
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "contractAuthor",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "fileContracts",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        },
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "authorContracts",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "fallback"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "author",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "authorName",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "name": "price",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "name": "crContract",
-          "type": "address"
-        }
-      ],
-      "name": "Register",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "name": "from",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "Paied",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "crContract",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "title",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "name": "description",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "name": "keywords",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "name": "previewFileHash",
-          "type": "string"
-        }
-      ],
-      "name": "UpdateContractInfo",
-      "type": "event"
-    },
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "CopyRightContractRegister",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "fileHash",
-          "type": "string"
-        },
-        {
-          "name": "authorName",
-          "type": "string"
-        },
-        {
-          "name": "price",
-          "type": "uint256"
-        }
-      ],
-      "name": "register",
-      "outputs": [
-        {
-          "name": "_fileContract",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "crContract",
-          "type": "address"
-        },
-        {
-          "name": "title",
-          "type": "string"
-        },
-        {
-          "name": "description",
-          "type": "string"
-        },
-        {
-          "name": "keywords",
-          "type": "string"
-        },
-        {
-          "name": "previewFileHash",
-          "type": "string"
-        }
-      ],
-      "name": "updateContractInfo",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "start",
-          "type": "uint256"
-        },
-        {
-          "name": "length",
-          "type": "uint256"
-        },
-        {
-          "name": "reverse",
-          "type": "bool"
-        }
-      ],
-      "name": "list",
-      "outputs": [
-        {
-          "name": "_fileContracts",
-          "type": "address[]"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "author",
-          "type": "address"
-        },
-        {
-          "name": "start",
-          "type": "uint256"
-        },
-        {
-          "name": "length",
-          "type": "uint256"
-        }
-      ],
-      "name": "listByAuthor",
-      "outputs": [
-        {
-          "name": "_fileContracts",
-          "type": "address[]"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ];
-
-  crcAbi = [
-    {
-      "constant": false,
-      "inputs": [],
-      "name": "getFile",
-      "outputs": [
-        {
-          "name": "_fileHash",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "buyerName",
-          "type": "string"
-        }
-      ],
-      "name": "buy",
-      "outputs": [
-        {
-          "name": "_fileHash",
-          "type": "string"
-        }
-      ],
-      "payable": true,
-      "stateMutability": "payable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "title",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_buyerAddress",
-          "type": "address"
-        }
-      ],
-      "name": "verifyBuyerAddress",
-      "outputs": [
-        {
-          "name": "verified",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "authorName",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "description",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "keywords",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "owner",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "price",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_authorAddress",
-          "type": "address"
-        }
-      ],
-      "name": "setAuthor",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "author",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "previewFileHash",
-      "outputs": [
-        {
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_buyerName",
-          "type": "string"
-        }
-      ],
-      "name": "verifyBuyerName",
-      "outputs": [
-        {
-          "name": "verified",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_title",
-          "type": "string"
-        },
-        {
-          "name": "_description",
-          "type": "string"
-        },
-        {
-          "name": "_keywords",
-          "type": "string"
-        },
-        {
-          "name": "_previewFileHash",
-          "type": "string"
-        }
-      ],
-      "name": "setMetaInfo",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "_fileHash",
-          "type": "string"
-        },
-        {
-          "name": "_authorAddress",
-          "type": "address"
-        },
-        {
-          "name": "_authorName",
-          "type": "string"
-        },
-        {
-          "name": "_price",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "buyerAddress",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "buyerName",
-          "type": "string"
-        },
-        {
-          "indexed": false,
-          "name": "price",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "fileHash",
-          "type": "string"
-        }
-      ],
-      "name": "Buy",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "to",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "amount",
-          "type": "uint256"
-        }
-      ],
-      "name": "Transfer",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "buyerAddress",
-          "type": "address"
-        },
-        {
-          "indexed": false,
-          "name": "fileHash",
-          "type": "string"
-        }
-      ],
-      "name": "GetFile",
-      "type": "event"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "newOwner",
-          "type": "address"
-        }
-      ],
-      "name": "transferOwnership",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ];
+  
 
   const ipfs = new Ipfs({ repo: 'ipfs-chainstock'});
   var ipfsHost = "";
@@ -697,6 +1527,9 @@
     })
 
   var web3js;
+  var registerAddress = "0x00f67417f408c26826ec9b09c4fc70d0faa6ca9d";
+  var cstAddress = "0x948b1b1c9ce16f83e95b8258eb052332e614a9c9";
+
   if(typeof web3 != 'undefined') {
     web3js = new Web3(web3.currentProvider);
 
@@ -705,7 +1538,7 @@
         document.getElementById('list1').innerHTML="请到MetaMask切换到Rinkeby测试网络";
       }
       else {
-        register = web3js.eth.contract(registerAbi).at("0xee8e8dF50AB292475FCa8b751eD2F580Ba1f259A");
+        register = web3js.eth.contract(registerAbi).at(registerAddress);
         register.list(0,10, true, function(err,result){
           if(err)console.log(err);
           console.log(result);
@@ -730,6 +1563,12 @@
           }
           document.getElementById('list1').innerHTML = document.getElementById('list1').innerHTML + lines.join("<br>")
         });
+
+        cst = web3js.eth.contract(cstAbi).at(cstAddress);
+
+        updateCSTStatus();
+
+        
       }   
     });  
   }

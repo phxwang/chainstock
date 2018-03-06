@@ -3,7 +3,6 @@ pragma solidity ^0.4.18;
 import "./owned.sol";
 import "./CopyRightContract.sol";
 import "./ChainStockToken.sol";
-import "./SafeMath.sol";
 
 contract CRCTokenReserve is owned{
     //token address
@@ -16,7 +15,7 @@ contract CRCTokenReserve is owned{
     event GetPrice(uint256 total, uint256 reservedToken, uint256 reservedEth, uint256 marketToken, uint256 price);
 
     //返回的price是每CST的Wei价格
-    function getPrice() public returns(uint256 price) {
+    function getPrice() constant public returns(uint256 price) {
         ChainStockToken cst = ChainStockToken(tokenAddress);
         uint256 totalSupply = cst.totalSupply();
         uint256 tokenBalance = cst.balanceOf(this);
@@ -95,18 +94,25 @@ contract CRCRegister is owned, CRCTokenReserve{
     function register(
         string fileHash, 
         string authorName, 
-        uint256 price) 
+        uint256 price,
+        string title,
+        string description,
+        string keywords,
+        string previewFileHash) 
         public returns(address _fileContract){
-        address crc = address(new CopyRightContract(fileHash, msg.sender, authorName, price));
+        CopyRightContract crc = new CopyRightContract(fileHash, msg.sender, authorName, price);
+        crc.setMetaInfo(title,description,keywords,previewFileHash);
 
-        fileContracts.push(crc);
-        contractAuthor[crc] = msg.sender; 
+        address crcAddress = address(crc);
 
-        authorContracts[msg.sender].push(crc);
+        fileContracts.push(crcAddress);
+        contractAuthor[crcAddress] = msg.sender; 
+
+        authorContracts[msg.sender].push(crcAddress);
 
         awardToken(msg.sender, 1);
-        Register(msg.sender, authorName, price, crc);
-        return crc;
+        Register(msg.sender, authorName, price, crcAddress);
+        return crcAddress;
     }
 
     function updateContractInfo (
