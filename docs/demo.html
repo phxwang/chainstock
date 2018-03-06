@@ -1393,12 +1393,13 @@ cstAbi = [
 <h1>ChainStock Demo<a target="_blank" href="https://github.com/phxwang/chainstock">[github]</a></h1>
 <h5>ChainStock.org是一个完全去中心化的版权交易网络，版权所有者只要把版权文件（图片，视频，音频，文档）上传到网络中，就能在<a  target="_blank" href="https://ipfs.io/">IPFS</a>永久存储，并在<a target="_blank" href="https://www.ethereum.org">Ethereum</a>的智能合约中公开销售，每上传一个版权文件的同时即可获得一个CST（ChainStockToken）。</h5>
 <h5>版权购买者通过向智能合约支付Ether或CST购买版权文件，购买完成后即可实时获得摄影师的授权。</h5>
-<h5>你现在就可以试试上传图片文件获得CST，或者点击购买别人上传的图片文件。（目前整个智能合约运行在<a target="_blank"  href="https://www.rinkeby.io/">Rinkeby测试网络</a>上，Ether和CST都只作为demo使用，不需要支持任何实际的费用，<a target="_blank"  href="https://www.rinkeby.io/#faucet">点击获取测试用Ether</a>）</h5>
+<h5>你现在就可以试试上传图片文件获得CST，或者点击购买别人上传的图片文件。（目前整个智能合约运行在<a target="_blank"  href="https://www.rinkeby.io/">Rinkeby测试网络</a>上，Ether和CST都只作为demo使用，不需要支付任何实际的费用，<a target="_blank"  href="https://www.rinkeby.io/#faucet">点击获取测试用Ether</a>）</h5>
 <h4>当前网络已释放<span id="market_token_count">Nah</span>CST(共<span id="token_supply">Nah</span>CST)，当前单价<span id="price"></span>Ether/CST。你拥有<span id="token_count">Nah</span>CST。<a href="javascript:buyToken(1)">购买1CST</a> <a href="javascript:sellToken(1)">卖出1CST</a></h4>
 <h4>上传文件即可获得1CST</h4>
 <input type="file" id="files" name="files[]" multiple /><br>
 <output id="list"></output><br>
-<output id="list1">现有智能合约中的文件（最新10条）<a href="https://rinkeby.etherscan.io/address/0x00f67417f408c26826ec9b09c4fc70d0faa6ca9d" target="_blank">查看全部智能合约日志</a><br></output>
+<output>现有智能合约中的文件（最新10条）<a href="https://rinkeby.etherscan.io/address/0x00f67417f408c26826ec9b09c4fc70d0faa6ca9d" target="_blank">查看全部智能合约日志</a></output><br>
+<output id="list1"></output>
 <h4 id="status">IPFS Node status: offline</h4>
 
 <script>
@@ -1434,15 +1435,16 @@ cstAbi = [
   			var span = document.createElement('span');
         span.innerHTML = ["path: <a target='_blank' href='",ipfsHost, fileHash, "'>",fileHash,"</a>, transaction: <a target='_blank' href='https://rinkeby.etherscan.io/tx/",r,"'>",r,"</a><br>"].join("");
         document.getElementById('list').insertBefore(span, null);
-        /*var event = register.Register({fromBlock: "latest", toBlock: "pending" }).watch(function(err, result){
+        var event = register.Register({fromBlock: "latest", toBlock: "pending" }).watch(function(err, result){
           if(err)console.log(err);
           console.log(result);
-          contractAddress = result.args.crContract;
-          register.updateContractInfo(contractAddress,"test title", "test description", "keywords1, keywords2", fileHash, function(err, result) {
+          updateFileList();
+          //contractAddress = result.args.crContract;
+          /*register.updateContractInfo(contractAddress,"test title", "test description", "keywords1, keywords2", fileHash, function(err, result) {
               console.log(result);
-          })
+          })*/
           event.stopWatching();
-        });*/
+        });
   		})
   	});
   }
@@ -1505,6 +1507,33 @@ cstAbi = [
         });
   }
 
+  function updateFileList() {
+    register.list(0,10, true, function(err,result){
+          if(err)console.log(err);
+          console.log(result);
+          var lines = [];
+
+          //获得每个文件的预览图地址
+          for(i=0;i<result.length; i++){
+            r = result[i];
+            crc = web3js.eth.contract(crcAbi).at(r);
+            crc.previewFileHash((function(contractAddress){
+              return function(err,result) {
+                if(err)console.log(err);
+                  console.log(result);
+                console.log(contractAddress);
+                
+                document.getElementById(contractAddress).innerHTML =  document.getElementById(contractAddress).innerHTML + ["<img width=100 src='",ipfsHost,result,"'></img><a href='javascript:buyFile(\"",contractAddress,"\")'>点击购买</a>"].join("");
+                //console.log(document.getElementById(contractAddress).innerHTML);
+              }
+            })(r));
+          
+            lines.push(["<span id='",r,"'>",r,"</span>"].join(''));
+          }
+          document.getElementById('list1').innerHTML = lines.join("<br>")
+        });
+  }
+
   document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
   
@@ -1539,33 +1568,9 @@ cstAbi = [
       }
       else {
         register = web3js.eth.contract(registerAbi).at(registerAddress);
-        register.list(0,10, true, function(err,result){
-          if(err)console.log(err);
-          console.log(result);
-          var lines = [];
-
-          //获得每个文件的预览图地址
-          for(i=0;i<result.length; i++){
-            r = result[i];
-            crc = web3js.eth.contract(crcAbi).at(r);
-            crc.previewFileHash((function(contractAddress){
-              return function(err,result) {
-                if(err)console.log(err);
-                  console.log(result);
-                console.log(contractAddress);
-                
-                document.getElementById(contractAddress).innerHTML =  document.getElementById(contractAddress).innerHTML + ["<img width=100 src='",ipfsHost,result,"'></img><a href='javascript:buyFile(\"",contractAddress,"\")'>点击购买</a>"].join("");
-                //console.log(document.getElementById(contractAddress).innerHTML);
-              }
-            })(r));
-          
-            lines.push(["<span id='",r,"'>",r,"</span>"].join(''));
-          }
-          document.getElementById('list1').innerHTML = document.getElementById('list1').innerHTML + lines.join("<br>")
-        });
-
         cst = web3js.eth.contract(cstAbi).at(cstAddress);
 
+        updateFileList();
         updateCSTStatus();
 
         
