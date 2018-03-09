@@ -3,7 +3,7 @@
 ## 测试地址
 - CRCRegister服务（rinkeby）: 0x00f67417f408c26826ec9b09c4fc70d0faa6ca9d
 - ChainStockToken （rinkeby）: 0x948b1b1c9ce16f83e95b8258eb052332e614a9c9
-- 访问方法参考 [demo link](https://phxwang.github.io/chainstock/demo.html)([demo source ](https://github.com/phxwang/chainstock/blob/master/docs/demo.html))
+- 使用方法参考 [alpha1 link](https://phxwang.github.io/chainstock/alpha1.html)([alpha1 source ](https://github.com/phxwang/chainstock/blob/master/docs/alpha1.html))
 - 多IPFS网关访问：[ipfs.io](https://ipfs.io/ipns/ipfs.chainstock.org/), [ipfs.infura.io](https://ipfs.infura.io/ipns/ipfs.chainstock.org/), [eternum.io](https://www.eternum.io/ipns/ipfs.chainstock.org/)
 
 ## 基础技术
@@ -56,10 +56,12 @@
 
 ## ChangeLog
 - 2018-2-24 完成alpha0
+- 2018-3-9 完成alpha1
 
 ## TODO
 ### alpha1
-- 做一个好看的界面
+- 做一个好看的界面 done
+- 优化接口设计，减少transaction的连续调用次数（一次要1分钟，太慢了）done
 - 解决ipfs的稳定性问题
 - 发一个自有token，支持支付 done
   - token动态价格调节机制
@@ -67,7 +69,9 @@
     - register准备金 = 交易提成 + 购买token收入
 
 ### future
-- 优化接口设计，减少transaction的连续调用次数（一次要1分钟，太慢了）
+- 图片版权去重和校验机制
 - 提现风控机制
   - 每个用户一共可以从准备金账户兑换不超过社区贡献值90%的eth
   - 社区贡献值 = 卖出图片后贡献给社区的准备金+购买token贡献的eth
+- 发token衰减机制
+  - 上传图片获得的token随着图片量衰减
