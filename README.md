@@ -54,22 +54,26 @@
 * verifyBuyerName(buyerName)
 * verifyBuyerAddress(buyerAddress)
 
+## token设计
+token动态价格调节机制
+  - register准备金/0.05/市场流通的token数
+  - register准备金 = 交易提成 + 购买token收入
+
 ## ChangeLog
 - 2018-2-24 完成alpha0
 - 2018-3-9 完成alpha1
-
+  - 一个好看的界面
+  - 优化接口设计，减少transaction的连续调用次数（一次要1分钟，太慢了）
+  - 支持自有token的发行和支付 
+  
 ## TODO
-### alpha1
-- 做一个好看的界面 done
-- 优化接口设计，减少transaction的连续调用次数（一次要1分钟，太慢了）done
-- 解决ipfs的稳定性问题
-- 发一个自有token，支持支付 done
-  - token动态价格调节机制
-    - register准备金/0.05/市场流通的token数
-    - register准备金 = 交易提成 + 购买token收入
 
 ### future
-- 图片版权去重和校验机制
+- 解决ipfs的稳定性问题  
+- 图片版权去重和校验机制，冲突解决机制
+  - 利用token的数量来进行投票？
+- 用户注册及信息填写
+- 唯一版权号生成
 - 提现风控机制
   - 每个用户一共可以从准备金账户兑换不超过社区贡献值90%的eth
   - 社区贡献值 = 卖出图片后贡献给社区的准备金+购买token贡献的eth
