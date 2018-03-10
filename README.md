@@ -3,7 +3,7 @@
 ## 测试地址
 - CRCRegister服务（rinkeby）: 0x00f67417f408c26826ec9b09c4fc70d0faa6ca9d
 - ChainStockToken （rinkeby）: 0x948b1b1c9ce16f83e95b8258eb052332e614a9c9
-- 使用方法参考 [alpha1 link](https://phxwang.github.io/chainstock/docs/alpha1.html)([alpha1 source ](https://github.com/phxwang/chainstock/blob/master/docs/alpha1.html))
+- 使用方法参考 [alpha1 link](https://phxwang.github.io/chainstock/alpha1.html)([alpha1 source ](https://github.com/phxwang/chainstock/blob/master/docs/alpha1.html))
 - 多IPFS网关访问：[ipfs.io](https://ipfs.io/ipns/ipfs.chainstock.org/), [ipfs.infura.io](https://ipfs.infura.io/ipns/ipfs.chainstock.org/), [eternum.io](https://www.eternum.io/ipns/ipfs.chainstock.org/)
 
 ## 基础技术
