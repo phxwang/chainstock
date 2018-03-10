@@ -34,10 +34,13 @@
 * 输入contractaddress和买家名称（地址），返回是否有记录
 ### 下载
 * 输入通过购买得到的fileHash，通过IPFS的hash下载文件
-### 自有token (TODO)
+### 自有token 
 * 上传文件可以获得token
 * 购买文件可以使用token或者ether
 * token可以通过第三方交易所买入或卖出
+* token动态价格调节机制
+  - register准备金/0.05/市场流通的token数
+  - register准备金 = 交易提成 + 购买token收入
 ### 搜索 (TODO)
 * 需要一个中心化的服务器来进行搜索
 
@@ -54,10 +57,6 @@
 * verifyBuyerName(buyerName)
 * verifyBuyerAddress(buyerAddress)
 
-## token设计
-token动态价格调节机制
-  - register准备金/0.05/市场流通的token数
-  - register准备金 = 交易提成 + 购买token收入
 
 ## ChangeLog
 - 2018-2-24 完成alpha0
